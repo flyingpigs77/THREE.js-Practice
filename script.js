@@ -1,5 +1,8 @@
 const scene = new THREE.Scene();
 
+//REMINDER: FIGURE OUT WHY WORKS ON REPLIT AND NOT GITHUB
+//^^^^^^^^^^^^
+
 // The camera
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -9,7 +12,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 // Make the camera further from the cube
-s
+
 camera.position.z = 8;
 var zloc = camera.position.z;
 camera.position.x = 0;
