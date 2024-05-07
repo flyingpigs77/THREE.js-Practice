@@ -10,3 +10,13 @@ canvas {
 	height: 100%;
 	padding: 0;
 }
+
+button {
+    position: absolute;
+    display: block;
+    z-index: 99;
+	top: 80%;
+	left: 45%;
+	height: 50px;
+	width: 200px;
+}

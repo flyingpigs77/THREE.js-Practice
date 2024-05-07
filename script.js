@@ -14,11 +14,11 @@ const camera = new THREE.PerspectiveCamera(
 // Make the camera further from the cube
 
 camera.position.z = 8;
-var zloc = camera.position.z;
+var zloc = 8;
 camera.position.x = 0;
-var xloc = camera.position.x;;
+var xloc = 0;
 camera.position.y = 1;
-var yloc = camera.position.y;
+var yloc = 1;
 
 camera.lookAt(new THREE.Vector3(0,0,0));
 
@@ -26,13 +26,12 @@ camera.lookAt(new THREE.Vector3(0,0,0));
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x000000, 1);
-// Append the renderer canvas into <body>
 document.body.appendChild(renderer.domElement);
 
 // cube
 const cube = {
   // geometry: cubes shape and size
-  geometry: new THREE.BoxGeometry(1, .1, 2),
+  geometry: new THREE.BoxGeometry(1, 1, 1),
   // material: color/appearance
   material: new THREE.MeshBasicMaterial({ color: 0x00ff00})
 };
@@ -68,7 +67,6 @@ group.position.x = 0;
 group.position.y = 0;
 group.position.z = 0;
 
-
 var bgCube = cube.mesh.clone();
 var bgFrame = wireFrame.mesh.clone();
 
@@ -82,21 +80,50 @@ scene.add(bgGroup);
 
 
 var req;
-function updateCameraPosition() {
+
+function zoomIn() {
   if (camera.position.z > 4) {
-     camera.position.z -= (zloc-4)/60;
+    camera.position.z -= (4)/60;
+ } else {
+   zloc = camera.position.z;
+ }
+ 
+ if (camera.position.x > -1) {
+    camera.position.x -= (1)/60;
+ } else {
+   xloc = camera.position.x;
+   cancelAnimationFrame(req);
+ }
+ camera.lookAt(new THREE.Vector3(0,0,0));
+  req = requestAnimationFrame(zoomIn);
+}
+
+function zoomOut() {
+  if (camera.position.z < 8) {
+    camera.position.z += (4)/60;
+ } else {
+   zloc = camera.position.z;
+ }
+ 
+ if (camera.position.x < 0) {
+    camera.position.x += (1)/60;
+ } else {
+   xloc = camera.position.x;
+   cancelAnimationFrame(req);
+ }
+ camera.lookAt(new THREE.Vector3(0,0,0));
+  req = requestAnimationFrame(zoomOut);
+}
+
+var counter = -1;
+function updateCameraPosition() {
+  counter *= -1;
+  if (counter > 0) {
+    zoomIn();
   } else {
-    zloc = camera.position.z;
+    console.log("jit");
+    zoomOut();
   }
-  
-  if (camera.position.x > -1) {
-     camera.position.x -= (xloc+1)/60;
-  } else {
-    xloc = camera.position.x;
-    cancelAnimationFrame(req);
-  }
-  camera.lookAt(new THREE.Vector3(0,0,0));
-  req = requestAnimationFrame(updateCameraPosition);
 }
 
 function render() {
