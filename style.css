@@ -12,11 +12,16 @@ canvas {
 }
 
 button {
-    position: absolute;
-    display: block;
-    z-index: 99;
-	top: 80%;
-	left: 45%;
-	height: 50px;
-	width: 200px;
+	position: absolute;
+	display: block;
+	z-index: 99;
+}
+#zoom {
+	left: 30%;
+	top: 20%;
+}
+
+#homepage {
+	left: 56%;
+	top: 20%;
 }
